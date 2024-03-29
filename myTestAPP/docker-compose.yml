@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  go-backend:
+    build: ./my-go-app
+    volumes:
+      - ./my-go-app:/app
+    ports:
+      - "8080:8080"
+
+  react-frontend:
+    build: ./my-react-app
+    volumes:
+      - ./my-react-app:/app
+    ports:
+      - "3000:80"
+
+  nginx:
+    build: ./nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - go-backend
+      - react-frontend
